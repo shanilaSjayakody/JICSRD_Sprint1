@@ -27,10 +27,10 @@ class MY_Controller extends CI_Controller {
            $this->data['theming'] = 'setting_theming';
            $this->data['auth'] = 'Auth';
 
-           $this->load->"view"('assets');
-           $this->load->"view"('header',$meta);
-           $this->load->"view"($page,$data);
-           $this->load->"view"('footer');
+           $this->load->view('assets');
+           $this->load->view('header',$meta);
+           $this->load->view($page,$data);
+           $this->load->view('footer');
        }
 
    }
