@@ -117,5 +117,6 @@
 
 		<!-- System Alets are come here.-->
 		<?php// (isset($success)? $success : '') ?> <!-- System massages -->
-
+		<?php// (isset($error)? $error : '') ?>		<!-- Syatem errors -->
+		<?php// (isset($warning)? $warning : '') ?>	<!-- System warning -->
 		<?php// (isset($info)? $info : '') ?>		<!-- System Info -->
