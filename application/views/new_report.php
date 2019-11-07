@@ -202,6 +202,7 @@
 			localStorage.setItem('confidentiality_record','<?= $data_list[0]->confidentiality_record?>');
 			localStorage.setItem('financial_year','<?= $data_list[0]->financial_year?>');
 			localStorage.setItem('month','<?= $data_list[0]->month?>');
+			// alert('<?= $data_list[0]->scope?>');
 			localStorage.setItem('sales','<?= $data_list[0]->sales?>');
 			localStorage.setItem('cost_of_sales','<?= $data_list[0]->cost_of_sales?>');
 			localStorage.setItem('gross_profit','<?= $data_list[0]->gross_profit?>');

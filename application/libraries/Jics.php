@@ -196,7 +196,7 @@ class Jics {
 		elseif($month == '10'){ return 'October';}
 		elseif($month == '11'){ return 'November';}
 		elseif($month == '12'){ return 'December';}
-		else{ return false; }
+		else{ return "N/A"; }
 	}
 
 	public function indicators($data){
@@ -211,6 +211,7 @@ class Jics {
 	}
 
 	public function gross_profit_margin($data){
+		// var_dump($data);exit();
 		if($data <= 10){
 			return 'The Gross Profit Margin is marginal in the most recent year of assessment. This measure is used to show how much profit is left after the cost of goods sold is accounted for but before deducting other expenses. A high number indicates strong profitability and a very low or a negative number indicates possible problems with the cost structure.';
 		}elseif($data < 0){

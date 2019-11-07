@@ -41,13 +41,31 @@
         </div>
         <script type="text/javascript">
 
+            $(document).on('change', '#coaskd', function(event) {
+                $.post("<?= base_url('main/company_country') ?>",{
+                    id:$(this).val(),
+                },function(D){
+                    // alert();
+                    // document.querySelector('#report_type').value = type;
+                    $('#country').val(D);
+                    // $('#tablellll').html(D);
+                },"text");
+            });
+
+
             $(document).on('click', '#newreport', function(event) {
                 event.preventDefault();
                 /* Act on the event */
-                var company = $('#inlineFormCustomSelectPref').val();
+                var company = $('#coaskd').val();
                 var country = $('#country').val();
 
-                location.href = '<?= base_url('newreport')?>?com='+ company + '&cun=' + country;
+
+                if(company != "" && country != ""){
+                    location.href = '<?= base_url('newreport')?>?com='+ company + '&cun=' + country;
+                }else {
+                    alert('select county and company');
+                }
+
 
             });
             $(document).on('click', '#find', function(event) {
@@ -75,7 +93,7 @@
                         </tr>
                     </thead>
                     <tbody  id="tablellll">
-                       
+
                     </tbody>
                 </table>
             </div>

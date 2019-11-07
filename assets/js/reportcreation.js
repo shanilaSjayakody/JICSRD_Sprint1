@@ -75,11 +75,24 @@ $(document).on("keyup", ".form-control", function () {
 			// $(this).val(0);
 		}
 
+
+
 	});
+
+	if (e.which === 13) {
+		$(this).next('.form-control').focus();
+	}
 
 
 });
-
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
 $(document).on("keyup", ".ebit", function () {
 	row = $(this).attr('data-id');
 });
@@ -247,8 +260,16 @@ function clone() {
 
 
 
+	
+
+
 
 	// if(typeof(localStorage.getItem("acn")) != "undefined" && localStorage.getItem("acacnn") !== null) { var data_acn = localStorage.getItem("acn"); }acn { var data_acn = ''; }
+	if (typeof (localStorage.getItem('type')) != 'undefined' && localStorage.getItem('type') !== null) {
+		var type = localStorage.getItem('type');
+	} else {
+		var type = '';
+	}
 	if (typeof (localStorage.getItem('abn')) != 'undefined' && localStorage.getItem('abn') !== null) {
 		var abn = localStorage.getItem('abn');
 	} else {
@@ -261,47 +282,48 @@ function clone() {
 	}
 	if (typeof (localStorage.getItem('company_name')) != 'undefined' && localStorage.getItem('company_name') !== null) {
 		var company_name = localStorage.getItem('company_name');
-		$('#name_' + count).val(parseInt(company_name))
 	} else {
 		var company_name = '';
 	}
 	if (typeof (localStorage.getItem('rounding')) != 'undefined' && localStorage.getItem('rounding') !== null) {
-		$("#rounding_0").val(localStorage.getItem('rounding'));
-	} else {}
+		var rounding = localStorage.getItem('rounding');
+	} else {
+		var rounding = null;
+	}
 	if (typeof (localStorage.getItem('base_currency')) != 'undefined' && localStorage.getItem('base_currency') !== null) {
 		var base_currency = localStorage.getItem('base_currency');
 	} else {
-		var base_currency = '';
+		var base_currency = null;
 	}
 	if (typeof (localStorage.getItem('quality')) != 'undefined' && localStorage.getItem('quality') !== null) {
 		var quality = localStorage.getItem('quality');
 	} else {
-		var quality = '';
+		var quality = null;
 	}
 	if (typeof (localStorage.getItem('reporting_period_months')) != 'undefined' && localStorage.getItem('reporting_period_months') !== null) {
 		var reporting_period_months = localStorage.getItem('reporting_period_months');
 	} else {
-		var reporting_period_months = '';
+		var reporting_period_months = '1';
 	}
 	if (typeof (localStorage.getItem('scope')) != 'undefined' && localStorage.getItem('scope') !== null) {
 		var scope = localStorage.getItem('scope');
 	} else {
-		var scope = '';
+		var scope = '0';
 	}
 	if (typeof (localStorage.getItem('confidentiality_record')) != 'undefined' && localStorage.getItem('confidentiality_record') !== null) {
 		var confidentiality_record = localStorage.getItem('confidentiality_record');
 	} else {
-		var confidentiality_record = '';
+		var confidentiality_record = '0';
 	}
 	if (typeof (localStorage.getItem('financial_year')) != 'undefined' && localStorage.getItem('financial_year') !== null) {
 		var financial_year = localStorage.getItem('financial_year');
 	} else {
-		var financial_year = '';
+		var financial_year = '0';
 	}
 	if (typeof (localStorage.getItem('month')) != 'undefined' && localStorage.getItem('month') !== null) {
 		var month = localStorage.getItem('month');
 	} else {
-		var month = '';
+		var month = '0';
 	}
 	if (typeof (localStorage.getItem('sales')) != 'undefined' && localStorage.getItem('sales') !== null) {
 		var sales = localStorage.getItem('sales');
@@ -617,7 +639,7 @@ function clone() {
 		html += '		</div>';
 		html += '		<div class="form-group">';
 		html += '			<select data-id="' + count + '" id="rounding_' + count + '" name="rounding[]" class="browser-default custom-select" required="required">';
-		html += '				<option selected disabled>Rounding</option>';
+		html += '				<option value="null">Rounding</option>';
 		html += '				<option value="no">None</option>';
 		html += '				<option value="thousands">Thousands</option>';
 		html += '				<option value="millions">Millions</option>';
@@ -625,7 +647,7 @@ function clone() {
 		html += '		</div>';
 		html += '		<div class="form-group">';
 		html += '			<select data-id="' + count + '" id="base_currency_' + count + '" name="base_currency[]" class="browser-default custom-select" required="required">';
-		html += '				<option value="" disabled>Base Currency</option>';
+		html += '				<option value="null">Base Currency</option>';
 		html += '				<option value="aud">AUD</option>';
 		html += '				<option value="nzd">NZD</option>';
 		html += '				<option value="usd">USD</option>';
@@ -638,7 +660,7 @@ function clone() {
 		html += '		</div>';
 		html += '		<div class="form-group">';
 		html += '			<select data-id="' + count + '" id="quality_' + count + '" name="quality[]" class="browser-default custom-select"  required="required">';
-		html += '				<option selected disabled>Quality</option>';
+		html += '				<option value="null">Quality</option>';
 		html += '				<option value="management">management</option>';
 		html += '				<option value="audited">audited</option>';
 		html += '				<option value="statutory">statutory</option>';
@@ -678,7 +700,7 @@ function clone() {
 		html += '		</div>';
 		html += '		<div class="form-group">';
 		html += '			<select name="scope[]" data-id="' + count + '" id="scope_' + count + '" class="browser-default custom-select"  required="required">';
-		html += '				<option value="" selected disabled>Scope</option>';
+		html += '				<option value="0">Scope</option>';
 		html += '				<option value="asic">ASIC</option>';
 		html += '				<option value="consolidated">consolidated</option>';
 		html += '				<option value="parents">parents</option>';
@@ -687,7 +709,7 @@ function clone() {
 		html += '		</div>';
 		html += '		<div class="form-group">';
 		html += '			<select name="confidentiality_record[]" data-id="' + count + '" id="confidentiality_record_' + count + '" class="browser-default custom-select"  required="required">';
-		html += '				<option value="" selected disabled>Confidentiality Record</option>';
+		html += '				<option value="0">Confidentiality Record</option>';
 		html += '				<option value="public">public</option>';
 		html += '				<option value="asic">ASIC</option>';
 		html += '				<option value="published">published</option>';
@@ -696,7 +718,7 @@ function clone() {
 		html += '		</div>';
 		html += '		<div class="form-group">';
 		html += '			<select type="text" class="browser-default custom-select" name="financial_year[]" data-id="' + count + '" id="financial_year_' + count + '"  required="required">';
-		html += '				<option value="" selected disabled>Financial Year</option>';
+		html += '				<option value="0">Financial Year</option>';
 		html += '				<option value="2000">FY2000</option>';
 		html += '				<option value="2001">FY2001</option>';
 		html += '				<option value="2003">FY2003</option>';
@@ -753,7 +775,7 @@ function clone() {
 		html += '		<div class="form-group">';
 		// html += '			<input type="month" class="form-control" name="month[]" data-id="'+ count +'" id="month_'+ count +'" placeholder="Month"  required="required">';
 		html += '<select class="form-control" name="month[]" data-id="' + count + '" id="month_' + count + '" placeholder="Month"  required="required">';
-		html += "		<option selected disabled value=''>--Select Month--</option>";
+		html += "		<option value='0'>--Select Month--</option>";
 		html += "		<option value='1'>Janaury</option>";
 		html += "		<option value='2'>February</option>";
 		html += "		<option value='3'>March</option>";
@@ -980,5 +1002,21 @@ function clone() {
 		console.log(data1);
 		console.log(data2);
 
-	}
+		document.querySelector('#name_0').value = company_name;
+		document.querySelector('#rounding_0').value = rounding;
+		document.querySelector('#base_currency_0').value = base_currency;
+		document.querySelector('#quality_0').value = quality;
+		document.querySelector('#reporting_period_months_0').value = reporting_period_months;
+		document.querySelector('#scope_0').value = scope;
+		document.querySelector('#confidentiality_record_0').value = confidentiality_record;
+		document.querySelector('#financial_year_0').value = financial_year;
+		document.querySelector('#month_0').value = month;
+		document.querySelector('#report_type').value = type;
+
+
+		// $('.custom-select').removeClass('is-invalid');
+
+// $('#rounding_' + count + '').val(rounding);
+
+}
 }
